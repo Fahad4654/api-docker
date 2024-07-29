@@ -13,9 +13,6 @@ console.log(`Loaded env variables: ADMIN=${process.env.ADMIN}, PASS=${process.en
 const app = express();
 app.use(bodyParser.json());
 
-// Create a write stream (in append mode) for logging requests
-const logStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
-
 // Basic Authentication middleware
 app.use(basicAuth({
     users: { [process.env.ADMIN]: process.env.PASS },
@@ -32,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Use morgan for logging requests with custom format
-app.use(morgan(':date[iso] :remote-addr :method :url :status :response-time ms', { stream: logStream }));
+app.use(morgan(':date[iso] :remote-addr :method :url :status :response-time ms'));
 
 // Endpoint to execute Docker commands
 app.post('/run-docker', (req, res) => {
