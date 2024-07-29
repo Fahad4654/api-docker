@@ -16,6 +16,7 @@ step-1:
         6. node -v
 
 step-2:
+
         npm install -g pm2@latest   (if pm2 isn't installed)
 
 step-3:
